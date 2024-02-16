@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Oblig1</title>
+    <script type="application/javascript">
+
+    </script>
+</head>
+<body>
+<h1>Bestilling av Kinobiletter</h1>
+<form>
+    <label for="valgtFilm">Velg film</label>
+    <select id="valgtFilm">
+        <option value="" disabled selected>Velg film her</option>
+        <option>The Beekeeper</option>
+        <option>Killers of the Flower Moon</option>
+        <option>Sound of Freedom</option>
+        <option>Radical</option>
+    </select><br/><br/>
+    <label for="antallB">Antall</label>
+    <input type="number" id="antallB" min="1" max="9" required>
+    <br/><br/>
+    <table>
+        <tr><td>Fornavn</td>
+        <td><input type="text" id="fNavn" required></td></tr>
+        <tr><td>Etternavn</td>
+        <td><input type="text" id="eNavn" required></td></tr>
+        <tr><td>Telefonnr</td>
+        <td><input type="tel" id="tlf" required pattern="[0-9]{8}"> </td></tr>
+        <tr><td>Epost</td>
+        <td><input type="email" id="epost" required></td></tr>
+        <tr><td><button type="submit" onclick="kjopBillett()">Kjøp billett</button>
+        </td></tr>
+    </table>
+</form>
+<h3>Alle Billetter</h3>
+<div id="utskrift"></div><br/>
+<button onclick="slettBilletter()">Slett alle billettene</button>
+
+</body>
+</html>
