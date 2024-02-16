@@ -4,7 +4,50 @@
     <meta charset="UTF-8">
     <title>Oblig1</title>
     <script type="application/javascript">
+const kjopBilletter=[];
+function kjopBillett(){
+    const film=document.getElementById("valgtFilm").value;
+    const antall=document.getElementById("antallB").value;
+    const forNavn=document.getElementById("fNavn").value;
+    const etterNavn=document.getElementById("eNavn").value;
+    const telefoner=document.getElementById("tlf").value;
+    const epost=document.getElementById("epost");
 
+    const billetInfo={
+        film:film,
+        antall:antall,
+        fornavn:forNavn,
+        etternavn:etterNavn,
+        telefoner:telefoner,
+        epost:epost };
+
+    kjopBilletter.push(billetInfo);
+
+    //printer ut
+    let utskrift;
+    utskrift="<table><tr><th>Film</th><th>Antall</th><th>Fornavn</th>" +
+        "<th>Etternavn</th><th>Telefonnr</th><th>Epost</th></tr>";
+    if(isNaN(antall)){
+        console.log("feil,antall input må være et tall");}
+    else {
+        for(let i of kjopBilletter){
+            utskrift+="<tr><td>"+i.film+"</td><td>"+i.antall+
+        "</td><td>"+i.fornavn+"</td><td>"+i.etternavn+"</td><td>"+
+                i.telefoner+"</td><td>"+i.epost+"</td></tr>";
+        }
+        document.getElementById("utskrift").innerHTML=utskrift;
+        document.getElementById("valgtFilm").value="";
+        document.getElementById("antallB").value="";
+        document.getElementById("fNavn").value="";
+        document.getElementById("eNavn").value="";
+        document.getElementById("tlf").value="";
+        document.getElementById("epost").value="";
+    }
+}
+function slettBilletter(){
+    kjopBilletter.length=0;
+    document.getElementById("utskrift").innerHTML="";
+}
     </script>
 </head>
 <body>
