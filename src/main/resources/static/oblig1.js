@@ -1,6 +1,9 @@
-const kjopBilletter = [];
 
-function kjopBillett() {
+
+
+const kjopBilletter = [];  // Array for å sette inn kjøpte billetter.
+
+function kjopBillett() {       // Funksjon for å kjøpe billett.
     const film = document.getElementById("valgtFilm").value;
     const antall = document.getElementById("antallB").value;
     const forNavn = document.getElementById("fNavn").value;
@@ -9,7 +12,7 @@ function kjopBillett() {
     const epost = document.getElementById("epost").value;
 
     let gyldigInput = true;
-
+    //validerer film.
     if (film === '') {
         document.getElementById("feilInput").innerHTML = '';
         return  false;
@@ -17,6 +20,7 @@ function kjopBillett() {
     document.getElementById("feilInput").innerHTML = '';
 
 
+    //validerer antall
     if (isNaN(antall) || antall === '') {
         document.getElementById("feiltall").innerHTML = 'Antall må velges.'.fontcolor("red");
         gyldigInput = false;
@@ -24,6 +28,7 @@ function kjopBillett() {
         document.getElementById("feiltall").innerHTML = '';
     }
 
+    //validerer fornavn.
     if (forNavn === '') {
         document.getElementById("feilnNavn").innerHTML = 'Må skrive fornavn.'.fontcolor("red");
         gyldigInput = false;
@@ -31,6 +36,7 @@ function kjopBillett() {
         document.getElementById("feilnNavn").innerHTML = "";
     }
 
+    //validerer etternavn.
     if (etterNavn === '') {
         document.getElementById("feilEtternavn").innerHTML = 'Må skrive etternavn.'.fontcolor("red");
         gyldigInput= false;
@@ -38,7 +44,7 @@ function kjopBillett() {
         document.getElementById("feilEtternavn").innerHTML = "";
     }
 
-    //for validering av telfoner, bruker en enkelt regex pattern på 8 digits(tilsvare norske mobil nummer).
+    //for validering av telfoner, bruker en enkelt regex pattern på 8 digits(tilsvarer norske mobil nummer).
 
     const gyldigTelegonnr=/^\d{8}$/;
     if (isNaN(telefoner) || telefoner === '' || !gyldigTelegonnr.test(telefoner)) {
@@ -57,6 +63,7 @@ function kjopBillett() {
         document.getElementById("feilEpost").innerHTML = "";
     }
 
+    //funksjonen avbryttes hvis input er ikke gyldig.
     if (!gyldigInput) {
         return;
     }
@@ -69,6 +76,7 @@ function kjopBillett() {
     document.getElementById("feilTlf").innerHTML = '';
     document.getElementById("feilEpost").innerHTML = '';
 
+    //lagrer info om billetter.
     const billetInfo = {
         film: film,
         antall: antall,
@@ -78,6 +86,7 @@ function kjopBillett() {
         epost: epost
     };
 
+    //setter billet info i arrayet.
     kjopBilletter.push(billetInfo);
 
     // Printer ut
@@ -91,8 +100,10 @@ function kjopBillett() {
             i.telefoner + "</td><td>" + i.epost + "</td></tr>";
     }
 
-    //tommer arrayet
+    //skriver ut alle info om billetten i en tabel på skjermen.
     document.getElementById("utskrift").innerHTML = utskrift;
+
+    //nullstiller input felter.
     document.getElementById("valgtFilm").value = "";
     document.getElementById("antallB").value = "";
     document.getElementById("fNavn").value = "";
@@ -101,6 +112,7 @@ function kjopBillett() {
     document.getElementById("epost").value = "";
 }
 
+//slette billetter
 function slettBilletter() {
     kjopBilletter.length = 0;
     document.getElementById("utskrift").innerHTML = "";

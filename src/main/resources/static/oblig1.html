@@ -7,41 +7,53 @@
 
 </head>
 <body>
+<!--en html fil som inholder alle nødvendige tagger for å opprete appen av bestilling av kinobiletter-->
+
+
 <h1>Bestilling av Kinobiletter</h1>
+
 <form onsubmit="event.preventDefault(); kjopBillett();">
+
     <label for="valgtFilm">Velg film</label>
-    <select id="valgtFilm">
+    <select id="valgtFilm">     <!-- nedtrkkliste for å velge film -->
         <option value="" disabled selected>Velg film her</option>
         <option>The Beekeeper</option>
         <option>Killers of the Flower Moon</option>
         <option>Sound of Freedom</option>
         <option>Radical</option>
     </select>
-    <span id="feilInput" ></span><br/><br/>
+    <span id="feilInput" ></span><br/><br/>   <!-- Viser feilmelding hvis valg ikke er gyldig -->
+
     <label for="antallB">Antall</label>
-    <input type="number" id="antallB" min="1" max="99">
-    <span id="feiltall"></span>
+    <input type="number" id="antallB" min="1" max="99">  <!-- Antall billetter-->
+    <span id="feiltall"></span>              <!-- Viser feilmelding hvis valg ikke er gyldig -->
     <br/><br/>
-    <table>
-        <tr><td>Fornavn</td>
+
+    <table>                 <!-- Tabell for å organisere personlig informasjon -->
+        <tr><td>Fornavn</td>  <!--Rad med Fornavn input -->
             <td><input type="text" id="fNavn">
-                <span id="feilnNavn"></span></td></tr>
-        <tr><td>Etternavn</td>
+                <span id="feilnNavn"></span></td></tr>   <!-- Viser feilmelding hvis valg ikke er gyldig -->
+
+        <tr><td>Etternavn</td>    <!--Rad med Etternavn input -->
             <td><input type="text" id="eNavn">
-                <span id="feilEtternavn"></span></td></tr>
-        <tr><td>Telefonnr</td>
+                <span id="feilEtternavn"></span></td></tr>  <!-- Viser feilmelding hvis valg ikke er gyldig -->
+
+        <tr><td>Telefonnr</td>  <!--Rad med telefonnr input -->
             <td><input type="tel" id="tlf" placeholder="12345678">
-                <span id="feilTlf"></span></td></tr>
-        <tr><td>Epost</td>
+                <span id="feilTlf"></span></td></tr>        <!-- Viser feilmelding hvis valg ikke er gyldig -->
+
+        <tr><td>Epost</td>         <!--Rad med epost input -->
             <td><input type="text" id="epost" placeholder="example@example.com">
-                <span id="feilEpost"></span></td></tr>
-        <tr><td><button onclick="kjopBillett()">Kjøp billett</button>
+                <span id="feilEpost"></span></td></tr>             <!-- Viser feilmelding hvis valg ikke er gyldig -->
+
+        <tr><td><button onclick="kjopBillett()">Kjøp billett</button>   <!-- knap for å kjøpe billetter -->
         </td></tr>
     </table>
 </form>
-<h3>Alle Billetter</h3>
+
+<h3>Alle Billetter</h3>      <!-- Overskrift for å vise alle billetter -->
 <div id="utskrift"></div><br/>
-<button onclick="slettBilletter()">Slett alle billettene</button>
+<button onclick="slettBilletter()">Slett alle billettene</button>  <!-- knap for å slette alle billetter -->
 
 </body>
 </html>
