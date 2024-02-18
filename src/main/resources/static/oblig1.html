@@ -11,58 +11,63 @@
             const antall = document.getElementById("antallB").value;
             const forNavn = document.getElementById("fNavn").value;
             const etterNavn = document.getElementById("eNavn").value;
-            const telefoner = document.getElementById("tlf").value;
+            const telefoner = parseInt(document.getElementById("tlf").value);
             const epost = document.getElementById("epost").value;
 
-            let legal = true;
+            let gyldigInput = true;
 
             if (film === '') {
-                document.getElementById("feilInput").innerHTML = 'Må velge en film'.fontcolor("red");
-                legal = false;
-            } else {
                 document.getElementById("feilInput").innerHTML = '';
+                return  false;
             }
+                document.getElementById("feilInput").innerHTML = '';
+
 
             if (isNaN(antall) || antall === '') {
-                document.getElementById("feiltall").innerHTML = 'Må velge a number'.fontcolor("red");
-                legal = false;
+                document.getElementById("feiltall").innerHTML = 'Antall må velges.'.fontcolor("red");
+                gyldigInput = false;
             } else {
                 document.getElementById("feiltall").innerHTML = '';
             }
 
             if (forNavn === '') {
-                document.getElementById("feilnNavn").innerHTML = 'Må skrive fornavn'.fontcolor("red");
-                legal = false;
+                document.getElementById("feilnNavn").innerHTML = 'Må skrive fornavn.'.fontcolor("red");
+                gyldigInput = false;
             } else {
                 document.getElementById("feilnNavn").innerHTML = "";
             }
 
             if (etterNavn === '') {
-                document.getElementById("feilEtternavn").innerHTML = 'Må skrive etternavn'.fontcolor("red");
-                legal = false;
+                document.getElementById("feilEtternavn").innerHTML = 'Må skrive etternavn.'.fontcolor("red");
+                gyldigInput= false;
             } else {
                 document.getElementById("feilEtternavn").innerHTML = "";
             }
 
-            if (telefoner === '') {
-                document.getElementById("feilTlf").innerHTML = 'Må skrive telefonnr'.fontcolor("red");
-                legal = false;
+            //for validering av telfoner, bruker en enkelt regex pattern på 8 digits(tilsvare norske mobil nummer).
+
+            const gyldigTelegonnr=/^\d{8}$/;
+            if (isNaN(telefoner) || telefoner === '' || !gyldigTelegonnr.test(telefoner)) {
+                document.getElementById("feilTlf").innerHTML = 'Må skrive gyldig telefonnr.'.fontcolor("red");
+                gyldigInput= false;
             } else {
                 document.getElementById("feilTlf").innerHTML = "";
             }
 
-            if (epost === '') {
-                document.getElementById("feilEpost").innerHTML = 'Må skrive epost'.fontcolor("red");
-                legal = false;
+            //bruker en regex pattern også for validering epost.
+            const gyldigEpost= /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (epost === '' || !gyldigEpost.test(epost)) {
+                document.getElementById("feilEpost").innerHTML = 'Må skrive gyldig epost.'.fontcolor("red");
+               gyldigInput = false;
             } else {
                 document.getElementById("feilEpost").innerHTML = "";
             }
 
-            if (!legal) {
+            if (!gyldigInput) {
                 return;
             }
 
-            // Clear error messages when input is valid
+            // Fjern feilmeldinger når input er gyldig.
             document.getElementById("feilInput").innerHTML = '';
             document.getElementById("feiltall").innerHTML = '';
             document.getElementById("feilnNavn").innerHTML = '';
@@ -92,6 +97,7 @@
                     i.telefoner + "</td><td>" + i.epost + "</td></tr>";
             }
 
+            //tommer arrayet
             document.getElementById("utskrift").innerHTML = utskrift;
             document.getElementById("valgtFilm").value = "";
             document.getElementById("antallB").value = "";
@@ -120,7 +126,7 @@
     </select>
     <span id="feilInput" ></span><br/><br/>
     <label for="antallB">Antall</label>
-    <input type="number" id="antallB" min="1" max="9">
+    <input type="number" id="antallB" min="1" max="99">
     <span id="feiltall"></span>
     <br/><br/>
     <table>
@@ -131,10 +137,10 @@
             <td><input type="text" id="eNavn">
                 <span id="feilEtternavn"></span></td></tr>
         <tr><td>Telefonnr</td>
-            <td><input type="tel" id="tlf">
+            <td><input type="tel" id="tlf" placeholder="12345678">
                 <span id="feilTlf"></span></td></tr>
         <tr><td>Epost</td>
-            <td><input type="email" id="epost">
+            <td><input type="text" id="epost" placeholder="example@example.com">
                 <span id="feilEpost"></span></td></tr>
         <tr><td><button onclick="kjopBillett()">Kjøp billett</button>
         </td></tr>
