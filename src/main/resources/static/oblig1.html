@@ -4,55 +4,112 @@
     <meta charset="UTF-8">
     <title>Oblig1</title>
     <script type="application/javascript">
-const kjopBilletter=[];
-function kjopBillett(){
-    const film=document.getElementById("valgtFilm").value;
-    const antall=document.getElementById("antallB").value;
-    const forNavn=document.getElementById("fNavn").value;
-    const etterNavn=document.getElementById("eNavn").value;
-    const telefoner=document.getElementById("tlf").value;
-    const epost=document.getElementById("epost").value;
+        const kjopBilletter = [];
 
-    const billetInfo={
-        film:film,
-        antall:antall,
-        fornavn:forNavn,
-        etternavn:etterNavn,
-        telefoner:telefoner,
-        epost:epost };
+        function kjopBillett() {
+            const film = document.getElementById("valgtFilm").value;
+            const antall = document.getElementById("antallB").value;
+            const forNavn = document.getElementById("fNavn").value;
+            const etterNavn = document.getElementById("eNavn").value;
+            const telefoner = document.getElementById("tlf").value;
+            const epost = document.getElementById("epost").value;
 
-    kjopBilletter.push(billetInfo);
+            let legal = true;
 
-    //printer ut
-    let utskrift;
-    utskrift="<table><tr><th>Film</th><th>Antall</th><th>Fornavn</th>" +
-        "<th>Etternavn</th><th>Telefonnr</th><th>Epost</th></tr>";
-    if(isNaN(antall)){
-        console.log("feil,antall input må være et tall");}
-    else {
-        for(let i of kjopBilletter){
-            utskrift+="<tr><td>"+i.film+"</td><td>"+i.antall+
-        "</td><td>"+i.fornavn+"</td><td>"+i.etternavn+"</td><td>"+
-                i.telefoner+"</td><td>"+i.epost+"</td></tr>";
+            if (film === '') {
+                document.getElementById("feilInput").innerHTML = 'Må velge en film'.fontcolor("red");
+                legal = false;
+            } else {
+                document.getElementById("feilInput").innerHTML = '';
+            }
+
+            if (isNaN(antall) || antall === '') {
+                document.getElementById("feiltall").innerHTML = 'Må velge a number'.fontcolor("red");
+                legal = false;
+            } else {
+                document.getElementById("feiltall").innerHTML = '';
+            }
+
+            if (forNavn === '') {
+                document.getElementById("feilnNavn").innerHTML = 'Må skrive fornavn'.fontcolor("red");
+                legal = false;
+            } else {
+                document.getElementById("feilnNavn").innerHTML = "";
+            }
+
+            if (etterNavn === '') {
+                document.getElementById("feilEtternavn").innerHTML = 'Må skrive etternavn'.fontcolor("red");
+                legal = false;
+            } else {
+                document.getElementById("feilEtternavn").innerHTML = "";
+            }
+
+            if (telefoner === '') {
+                document.getElementById("feilTlf").innerHTML = 'Må skrive telefonnr'.fontcolor("red");
+                legal = false;
+            } else {
+                document.getElementById("feilTlf").innerHTML = "";
+            }
+
+            if (epost === '') {
+                document.getElementById("feilEpost").innerHTML = 'Må skrive epost'.fontcolor("red");
+                legal = false;
+            } else {
+                document.getElementById("feilEpost").innerHTML = "";
+            }
+
+            if (!legal) {
+                return;
+            }
+
+            // Clear error messages when input is valid
+            document.getElementById("feilInput").innerHTML = '';
+            document.getElementById("feiltall").innerHTML = '';
+            document.getElementById("feilnNavn").innerHTML = '';
+            document.getElementById("feilEtternavn").innerHTML = '';
+            document.getElementById("feilTlf").innerHTML = '';
+            document.getElementById("feilEpost").innerHTML = '';
+
+            const billetInfo = {
+                film: film,
+                antall: antall,
+                fornavn: forNavn,
+                etternavn: etterNavn,
+                telefoner: telefoner,
+                epost: epost
+            };
+
+            kjopBilletter.push(billetInfo);
+
+            // Printer ut
+            let utskrift;
+            utskrift = "<table><tr><th>Film</th><th>Antall</th><th>Fornavn</th>" +
+                "<th>Etternavn</th><th>Telefonnr</th><th>Epost</th></tr>";
+
+            for (let i of kjopBilletter) {
+                utskrift += "<tr><td>" + i.film + "</td><td>" + i.antall +
+                    "</td><td>" + i.fornavn + "</td><td>" + i.etternavn + "</td><td>" +
+                    i.telefoner + "</td><td>" + i.epost + "</td></tr>";
+            }
+
+            document.getElementById("utskrift").innerHTML = utskrift;
+            document.getElementById("valgtFilm").value = "";
+            document.getElementById("antallB").value = "";
+            document.getElementById("fNavn").value = "";
+            document.getElementById("eNavn").value = "";
+            document.getElementById("tlf").value = "";
+            document.getElementById("epost").value = "";
         }
-        document.getElementById("utskrift").innerHTML=utskrift;
-        document.getElementById("valgtFilm").value="";
-        document.getElementById("antallB").value="";
-        document.getElementById("fNavn").value="";
-        document.getElementById("eNavn").value="";
-        document.getElementById("tlf").value="";
-        document.getElementById("epost").value="";
-    }
-}
-function slettBilletter(){
-    kjopBilletter.length=0;
-    document.getElementById("utskrift").innerHTML="";
-}
+
+        function slettBilletter() {
+            kjopBilletter.length = 0;
+            document.getElementById("utskrift").innerHTML = "";
+        }
     </script>
 </head>
 <body>
 <h1>Bestilling av Kinobiletter</h1>
-<form>
+<form onsubmit="event.preventDefault(); kjopBillett();">
     <label for="valgtFilm">Velg film</label>
     <select id="valgtFilm">
         <option value="" disabled selected>Velg film her</option>
@@ -60,20 +117,26 @@ function slettBilletter(){
         <option>Killers of the Flower Moon</option>
         <option>Sound of Freedom</option>
         <option>Radical</option>
-    </select><br/><br/>
+    </select>
+    <span id="feilInput" ></span><br/><br/>
     <label for="antallB">Antall</label>
-    <input type="number" id="antallB" min="1" max="9" required>
+    <input type="number" id="antallB" min="1" max="9">
+    <span id="feiltall"></span>
     <br/><br/>
     <table>
         <tr><td>Fornavn</td>
-        <td><input type="text" id="fNavn" required></td></tr>
+            <td><input type="text" id="fNavn">
+                <span id="feilnNavn"></span></td></tr>
         <tr><td>Etternavn</td>
-        <td><input type="text" id="eNavn" required></td></tr>
+            <td><input type="text" id="eNavn">
+                <span id="feilEtternavn"></span></td></tr>
         <tr><td>Telefonnr</td>
-        <td><input type="tel" id="tlf" required pattern="[0-9]{8}"> </td></tr>
+            <td><input type="tel" id="tlf">
+                <span id="feilTlf"></span></td></tr>
         <tr><td>Epost</td>
-        <td><input type="email" id="epost" required></td></tr>
-        <tr><td><button type="submit" onclick="kjopBillett()">Kjøp billett</button>
+            <td><input type="email" id="epost">
+                <span id="feilEpost"></span></td></tr>
+        <tr><td><button onclick="kjopBillett()">Kjøp billett</button>
         </td></tr>
     </table>
 </form>
